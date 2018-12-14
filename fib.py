@@ -2,23 +2,30 @@
 
 from sys import argv
 
-script, input_file, *rest = argv
-
-with open(input_file, 'r') as ipf:
-    n, k = [int(i) for i in ifp.read().strip().split()]
 
 def rabbits(n, k):
-    kids = 1
-    adults = 1
+    """
+    >>> rabbits(5, 3)
+    19
+    """
+    prev, nxt = 1, 1
     for _ in range(2, n):
-        newborn = adults * k
-        adults += kids
-        kids = newborn
-    return adults + kids
+        prev, nxt = nxt, prev * k + nxt
+    return nxt
 
-fname, s, ext = input_file.rpartition('.')
-output_file = fname + '_result' + s + ext
 
-with open(output_file, 'w') as opf:
-    print(rabbits(gen, num))
-    opf.write(f'{rabbits(gen, num)}')
+def main():
+    script, input_file = argv
+
+    with open(input_file, "r") as f:
+        n, k = [int(i) for i in f.read().strip().split()]
+
+    fname, s, ext = input_file.rpartition(".")
+    output_file = fname + "_result" + s + ext
+
+    with open(output_file, "w") as f:
+        f.write(f"{rabbits(n, k)}")
+
+
+if __name__ == "__main__":
+    main()

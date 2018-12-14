@@ -3,24 +3,31 @@
 from collections import Counter
 from sys import argv
 
-template = '{A:d} {C:d} {G:d} {T:d}'
+ANSWER_TEMPLATE = "{A:d} {C:d} {G:d} {T:d}"
 
-script, input_file, * = argv
 
 def count(seq):
-    '''s = 'AGCTTTTCATTCTGACTGCAACGGGCAATATGTCTCTGTGTGGATTAAAAAAAGAGTGTCTGATAGCAGC'
-    >>>count(s)
+    """
+    >>> count('AGCTTTTCATTCTGACTGCAACGGGCAATATGTCTCTGTGTGGATTAAAAAAAGAGTGTCTGATAGCAGC')
     '20 12 17 21'
-    '''
+    """
     cnt = Counter(seq)
-    return template.format(**cnt)
+    return ANSWER_TEMPLATE.format(**cnt)
 
-with open(input_file) as ifp:
-    seq = ifp.read()
-    result = count(seq)
 
-fname, s, ext = input_file.rpartition('.')
-output_file = fname + '_result' + s + ext
+def main():
+    script, input_file = argv
 
-with open(output_file, 'w') as ofp:
-    ofp.write(result)
+    with open(input_file) as f:
+        seq = f.read()
+        result = count(seq)
+
+    fname, s, ext = input_file.rpartition(".")
+    output_file = fname + "_result" + s + ext
+
+    with open(output_file, "w") as f:
+        f.write(result)
+
+
+if __name__ == "__main__":
+    main()
